@@ -1,9 +1,8 @@
 import './pages/index.css';
-import { createCard, deleteCard, openPopUpImage, likeControl } from './components/card.js';
+import { createCard, deleteCard, } from './components/card.js';
 import { initialCards } from './components/cards.js'
-import { openModal, closeModal, closeModalOverlay, closeModalEsc } from './components/modal.js';
+import { openModal, closeModal, closeModalOverlay, } from './components/modal.js';
 
-export const cardTemplate = document.querySelector('#card-template').content;
 const cardContainer = document.querySelector('.places__list');
 export const popUpElements = document.querySelectorAll('.popup');
 const editProfileForm = document.querySelector('.popup_type_edit');
@@ -19,12 +18,14 @@ const formProfileInputJob = formProfile.elements.description;
 const formNewPlace = document.forms['new-place'];
 const formNewPlaceName = formNewPlace.elements['place-name'];
 const formNewPlaceLink = formNewPlace.elements.link;
+const imagePopUp = document.querySelector('.popup_type_image');
+const imagePopUpImage = document.querySelector('.popup__image');
+const imagePopUpText = document.querySelector('.popup__caption');
 
 editProfileButton.addEventListener('click', () => {
   openModal(editProfileForm);
   formProfileInputName.value = profileTitle.textContent;
   formProfileInputJob.value = profileDescription.textContent;
-  document.addEventListener('keydown', closeModalEsc);
 });
 
 function handleFormSubmit(evt) {
@@ -38,7 +39,6 @@ formProfile.addEventListener('submit', handleFormSubmit);
 
 addCardButton.addEventListener('click', () => {
   openModal(addCardForm);
-  document.addEventListener('keydown', closeModalEsc);
 });
 
 function addCard (evt) {
@@ -48,12 +48,23 @@ function addCard (evt) {
   newCardData.link = formNewPlaceLink.value;
   const cardElement = createCard(newCardData, deleteCard, openPopUpImage, likeControl);
   closeModal(popUpElements);
-  formNewPlaceName.value = "";
-  formNewPlaceLink.value = "";
+  evt.target.reset();
   cardContainer.prepend(cardElement);
 };
 
 formNewPlace.addEventListener('submit', addCard);
+
+function openPopUpImage (image, text) {
+  openModal(imagePopUp);
+  imagePopUpImage.src = image.src;
+  imagePopUpImage.alt = image.alt;
+  imagePopUpText.textContent = text.textContent;
+};
+
+function likeControl (item) {
+  console.log(item);
+  item.classList.toggle('card__like-button_is-active');
+};
 
 closePopUpButtons.forEach(item => {
   item.addEventListener('click', () => {

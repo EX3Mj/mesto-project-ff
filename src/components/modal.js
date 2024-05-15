@@ -4,13 +4,15 @@ export function openModal (element) {
   element.classList.add('popup_is-animated');
   setTimeout(() => {
     element.classList.add('popup_is-opened');
-  });
+  });  
+  document.addEventListener('keydown', closeModalEsc);
 }
 
 export function closeModal (element) {
   element.forEach(item => {
     item.classList.remove('popup_is-opened');
-  });
+  });  
+  document.removeEventListener('keydown', closeModalEsc);
 };
 
 export function closeModalOverlay(element) {
@@ -21,9 +23,8 @@ export function closeModalOverlay(element) {
 });
 };
 
-export function closeModalEsc(evt) {
+function closeModalEsc(evt) {
   if (evt.key === 'Escape') {
   closeModal(popUpElements);
   };
-  document.removeEventListener('keydown', closeModalEsc);
 };

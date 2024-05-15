@@ -1,5 +1,4 @@
-import { openModal } from "./modal";
-import { cardTemplate } from "..";
+const cardTemplate = document.querySelector('#card-template').content;
 
 export function createCard (cardData, deleteCallBack, popUpCallBack, likeCallBack) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -18,20 +17,4 @@ export function createCard (cardData, deleteCallBack, popUpCallBack, likeCallBac
 
 export function deleteCard (item) {
   item.remove();
-};
-
-export function openPopUpImage (image, text) {
-  const imagePopUp = document.querySelector('.popup_type_image');
-  const imagePopUpImage = document.querySelector('.popup__image');
-  const imagePopUpText = document.querySelector('.popup__caption');
-  openModal(imagePopUp);
-  imagePopUpImage.src = image.src;
-  imagePopUpImage.alt = image.alt;
-  imagePopUpText.textContent = text.textContent;
-  document.addEventListener('keydown', closeModalEsc);
-};
-
-export function likeControl (item) {
-  console.log(item);
-  item.classList.toggle('card__like-button_is-active');
 };
