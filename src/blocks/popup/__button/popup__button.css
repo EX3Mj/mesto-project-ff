@@ -10,7 +10,7 @@
   background: #000;
   border-radius: 2px;
   border: none;
-  transition: visibility 0s, background 0.3s;
+  transition: visibility 0s, background 0.3s, opacity 0.3s;
   margin-top: 48px;
 }
 
@@ -24,4 +24,11 @@
     font-size: 14px;
     line-height: 17px;
   }
+}
+
+.button_inactive {
+  color: #000;
+  border: 1px solid #000;
+  background: none;
+  opacity: 20%;
 }
